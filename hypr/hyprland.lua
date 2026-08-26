@@ -1,3 +1,10 @@
+local f = io.open("/etc/hostname", "r")
+local host = f and f:read("*l") or "unknown"
+if f then f:close() end
+
+local desktop = "Lucy-Main-Machine"
+local laptop = "space-lesbian-os"
+
 ------------------
 ---- MONITORS ----
 ------------------
@@ -28,8 +35,12 @@ local menu        = "hyprlauncher"
 ---- AUTOSTART ----
 -------------------
 
-hl.on("hyprland.start", function () 
-  hl.exec_cmd("phonto .config/lucydity/wallpapers/signalis-train.mp4")
+hl.on("hyprland.start", function ()  
+  if host == desktop then
+    hl.exec_cmd("phonto .config/lucydity/wallpapers/signalis-train.mp4")
+  elseif host == laptop then
+    hl.exec_cmd("phonto .config/lucydity/wallpapers/aura.png")
+  end
 end)
 
 
