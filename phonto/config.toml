@@ -1,0 +1,29 @@
+# phonto configuration
+#
+# search_paths: directories scanned by --rand and by per-display `random = true`.
+# Each entry has a path and a depth (0 = top-level only).
+#
+# [[search_paths]]
+# path = "/home/user/wallpapers"
+# depth = 1
+#
+# alias: portable names for displays across operating systems. Use the alias
+# name in [[display]].id and `phonto displays` will tell you the per-OS strings
+# to put here.
+#
+# [[alias]]
+# name = "main"
+# wayland = "DP-1"
+# macos = "DELL U2723QE"
+#
+# display: pin a video (or a random pick) to a specific display. `id` matches
+# an [[alias]].name OR a raw native ID as shown by `phonto displays`. Exactly
+# one of `path` or `random = true` per entry.
+#
+# [[display]]
+# id = "main"
+# path = "/path/to/wallpaper.mp4"
+#
+# [[display]]
+# id = "laptop"
+# random = true

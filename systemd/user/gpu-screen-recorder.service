@@ -1,0 +1,39 @@
+[Unit]
+Description=gpu-screen-recorder
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+PassEnvironment=WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_RUNTIME_DIR
+Type=simple
+ExecStart=/usr/bin/gpu-screen-recorder \
+  -o /mnt/hdd/clips \
+  -w HDMI-A-1 \
+  -c mp4 \
+  -s 1920x1080 \
+  -f 60 \
+  -a default_input \
+  -a "app:Chromium" \
+  -a "app:Firefox" \
+  -a "app-inverse:Chromium|app-inverse:Firefox" \
+  -q high \
+  -r 300 \
+  -replay-storage ram \
+  -restart-replay-on-save no \
+  -k auto \
+  -ac opus \
+  -ab 128 \
+  -fm cfr \
+  -bm auto \
+  -cr limited \
+  -tune performance \
+  -df no \
+  -cursor yes \
+  -keyint 2.0 \
+  -encoder gpu
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=graphical-session.target

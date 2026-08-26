@@ -1,0 +1,67 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    "source": "~/.config/lucydity/fastfetch/signalis",
+    "color": {
+        "1": "0;36", // cyan
+        "2": "36;44", // cyan ; blue
+	"3": "0;34", // blue ; none
+	"4": "36;47",
+	"5": "0;37",
+	"6": "37;44",
+	"7": "0;37",
+	"9": "0" // fuck
+    },
+    "padding": {
+	"top": 1,
+	"left": 2,
+	"right": 2
+    }
+  },
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    //"host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    /*{
+	"type": "display",
+	"format": "{width}x{height}@{refresh-rate}Hz"
+    },*/
+    //"de",
+    {
+        "type": "wm",
+        "format": "{pretty-name}"
+    },
+    //"wmtheme",
+    //"theme",
+    //"icons",
+    //"font",
+    //"cursor",
+    "terminal",
+    //"terminalfont",
+    {
+        "type": "cpu",
+        "format": "{name} ({cores-logical}) {freq-max}"
+    },
+    {
+        "type": "gpu",
+        "format": "{name}"
+    },
+    "memory",
+    "swap",
+    {
+        "type": "disk",
+        "format": "{size-used} / {size-total} ({size-percentage})"
+    },
+    //"battery",
+    //"poweradapter",
+    "localip",
+    //"locale",
+    "break",
+    "colors"
+  ]
+}

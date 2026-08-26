@@ -1,0 +1,332 @@
+# =================
+# mprisence config
+# =================
+#
+# Copy this file to one of:
+#   ~/.config/mprisence/config.toml
+#   ~/.config/mprisence.toml
+#   ./mprisence.toml (cwd)
+#
+# Validate your config:
+#   mprisence config
+
+# ------------------
+# Basic Settings
+# ------------------
+
+# event_driven = true                  # subscribe to MPRIS signals (default). false = poll-only.
+# fallback_poll_interval = 5000        # ms between fallback polls (event-driven mode)
+# interval = 2000                      # ms between polls (poll-only mode)
+
+# Restrict discovery by stable player/site key, normalized identity, or canonical bus name.
+# Every selector accepts exact, wildcard, and re:regex patterns. Empty = allow all.
+# Unscoped legacy values still match either identity or bus, but are deprecated.
+# Examples:
+# allowed_players = ["player:vlc", "web_player:youtube_music", "bus:*mpdris2*"]
+# allowed_players = ["identity:vlc_media_player", 'identity:re:^music_.*$']
+# allowed_players = []
+
+# ------------------
+# Display Template
+# ------------------
+[template]
+# First line in Discord presence
+# details = "{{{title}}}"
+
+# Second line in Discord presence
+# state = "{{{artist_display}}}"
+# Or with Handlebars helpers:
+# state = "{{#each artists}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}"
+
+# Text shown when hovering over the large image
+# For "listening": shown as third line
+# large_text = "{{#if album}}{{{album}}}{{#if year}} ({{{year}}}){{/if}}{{/if}}"
+
+# Text shown when hovering over the small image (player icon)
+# Only visible when show_icon = true
+# small_text = "{{#if player}}{{{player}}}{{else}}MPRIS{{/if}}"
+
+# Templates are rendered using Handlebars
+#
+# Available Handlebars Helpers:
+# - Built-in Helpers: https://handlebarsjs.com/guide/builtin-helpers.html
+# - eq: Compare two values for equality
+#   Example: {{#if (eq status "playing")}}Playing{{/if}}
+# - contains: Check whether one string contains another
+#   Example: {{#if (contains player "Spotify")}}Spotify{{/if}}
+# - icontains: Check whether one string contains another, case-insensitively
+#   Example: {{#if (icontains player "spotify")}}Spotify{{/if}}
+# - regex_is_match: Match a string against a regex pattern
+#   Example: {{#if (regex_is_match pattern="^Spot.*" on=player)}}Spotify{{/if}}
+# - regex_captures: Capture named or indexed regex groups
+#   Example: {{#with (regex_captures pattern="^(?<name>.+) Desktop$" on=player)}}{{name}}{{/with}}
+#
+# Available template variables:
+# Core Metadata:
+#   {{{title}}}              - Track title
+#   {{{artists}}}            - Track artists (as array)
+#   {{{artist_display}}}     - Track artists (comma separated)
+#   {{{album}}}              - Album name
+#   {{{album_artists}}}      - Album artists (as array)
+#   {{{album_artist_display}}} - Album artists (comma separated)
+#   {{{track_number}}}       - Track number
+#   {{{track_total}}}        - Total tracks in album
+#   {{{track_display}}}      - Track number as "X/Y"
+#   {{{disc_number}}}        - Disc number
+#   {{{disc_total}}}         - Total discs
+#   {{{disc_display}}}       - Disc number as "X/Y"
+#   {{{genres}}}             - Track genres (as array)
+#   {{{genre_display}}}      - Track genres (comma separated)
+#   {{{year}}}               - Release year
+#
+# Additional Metadata:
+#   {{{duration_secs}}}      - Duration in seconds
+#   {{{duration_display}}}   - Duration as "MM:SS"
+#   {{{initial_key}}}        - Musical key
+#   {{{bpm}}}                - Beats per minute
+#   {{{mood}}}               - Track mood
+#
+# Audio Properties:
+#   {{{bitrate_display}}}    - e.g. "320 kbps"
+#   {{{sample_rate_display}}} - e.g. "44.1 kHz"
+#   {{{bit_depth_display}}}  - e.g. "16-bit"
+#   {{{channels_display}}}   - e.g. "Stereo"
+#
+# Player Status:
+#   {{{player}}}             - Media player name
+#   {{{player_bus_name}}}    - Player bus name
+#   {{{status}}}             - Playback status
+#   {{{status_icon}}}        - Status as icon (▶, ⏸, ⏹)
+#   {{{volume}}}             - Player volume
+#
+# Additional IDs:
+#   {{{isrc}}}               - International Standard Recording Code
+#   {{{barcode}}}            - Release barcode
+#   {{{catalog_number}}}     - Release catalog number
+#   {{{label}}}              - Record label
+#   {{{musicbrainz_track_id}}} - MusicBrainz track ID
+#   {{{musicbrainz_album_id}}} - MusicBrainz album ID
+#   {{{musicbrainz_artist_id}}} - MusicBrainz artist ID
+#   {{{musicbrainz_album_artist_id}}} - MusicBrainz album artist ID
+#   {{{musicbrainz_release_group_id}}} - MusicBrainz release group ID
+
+# ------------------
+# Activity Types
+# ------------------
+[activity_type]
+# Automatically determine activity type based on media content
+# audio -> "listening", video -> "watching", etc.
+# use_content_type = true
+
+# Default activity type when content type detection is disabled
+# or when the type cannot be determined
+# Available types:
+#   "listening" - Shows as "Listening to ..."
+#   "watching"  - Shows as "Watching ..."
+#   "playing"   - Shows as "Playing ..."
+#   "competing" - Shows as "Competing in ..."
+# default = "listening"
+
+# ------------------
+# Time Settings
+# ------------------
+[time]
+# Enable/disable time progress in Discord
+# When enabled:
+# - For "listening": Shows as progress bar
+# - For other types: Shows as elapsed/remaining time
+# show = true
+
+# Time display mode:
+# true = show elapsed time (e.g., 1:23)
+# false = show remaining time (e.g., -1:23)
+# as_elapsed = false
+
+# ------------------
+# Cover Art Settings
+# ------------------
+[cover]
+# List of file names (without extension) to search for local cover art.
+# Files are searched in the order listed.
+# Extensions like .jpg, .jpeg, .png, .gif are automatically checked.
+# file_names = ["cover", "folder", "front", "album", "art"]
+
+# How many parent directories to search upwards from the media file's location
+# for local cover art. 0 means only search in the same directory.
+# local_search_depth = 2
+
+[cover.cache]
+# Maximum total disk usage in MiB. The oldest entries are evicted first.
+# max_size_mb = 32
+
+# Maximum number of logical cache entries.
+# max_entries = 1024
+
+# Maximum time an entry remains cached, in hours.
+# ttl_hours = 24
+
+[cover.provider]
+# Cover art providers (in order of preference)
+# "catbox"     - Upload using Catbox (optionally via temp Litterbox)
+# "musicbrainz" - Fetch from MusicBrainz database
+# "imgbb"      - Upload and host on ImgBB
+# provider = ["catbox", "musicbrainz"]
+
+[cover.provider.imgbb]
+# Your ImgBB API key (required to use the imgbb provider).
+# Obtain from https://api.imgbb.com/
+# api_key = "your_api_key"
+
+# Expiration time in seconds for images uploaded to ImgBB.
+# 0 means the image never expires.
+# expiration = 86400 # 24 hours
+
+[cover.provider.musicbrainz]
+# Minimum score (0-100) required for a MusicBrainz result.
+# Higher = stricter matching, lower = more matches (more false positives).
+# min_score = 100
+
+[cover.provider.catbox]
+# Upload files via catbox.moe. No API key required, but you can set your user hash
+# if you want to delete uploads later.
+# user_hash = "your_catbox_user_hash"
+
+# When true, uploads go to the temporary Litterbox service rather than Catbox itself.
+# Valid values for litter_hours are 1, 12, 24, or 72 hours. Anything else is clamped to 24.
+# use_litter = true
+# litter_hours = 24
+
+# ------------------
+# Player Settings
+# ------------------
+[player]
+# Default config for all players.
+# Priority: user entries > bundled entries > [player.default] > built-in defaults.
+# Fields left unset in a higher-priority entry fall back to lower matches.
+#
+# [player.default].ignore_unmatched controls unknown players (hide/show).
+# Matched [player.*] entries start enabled unless some matched layer sets ignore = true.
+#
+# Fields:
+#   match_pattern / match_patterns: Match normalized MPRIS identity or canonical bus name.
+#       Prefix with identity: or bus: to restrict a pattern to one field.
+#   name: Discord activity name and {{{player}}} template value
+#   use_app_name: Omit the activity name so Discord uses the name registered for app_id
+#   ignore: Don't show rich presence for this player
+#   ignore_unmatched: Only in [player.default]. Hide players with no matching [player.*] entry.
+#   app_id: Discord application ID (get yours: https://discord.com/developers/docs/quick-start/overview-of-apps)
+#   icon: Player icon URL (shown as small image)
+#   show_icon: Show player icon in Discord
+#   allow_streaming: Enable presence for web-based media (browsers, streaming services)
+#   status_display_type: Which text shows in your Discord status:
+#       "name"    -> Player/app name
+#       "state"   -> Rendered template.state value (default: "{{{artists}}}")
+#       "details" -> Rendered template.details value (default: "{{{title}}}")
+#   override_activity_type: Always use this activity type regardless of media content
+
+# default = { ignore_unmatched = true, app_id = "1121632048155742288", icon = "https://raw.githubusercontent.com/lazykern/mprisence/main/assets/icon.png", show_icon = false, allow_streaming = false, status_display_type = "name" }
+
+# ------------------
+# Example: Player Overrides
+# ------------------
+# Each player can override any default setting above.
+# Matched entries start enabled; add ignore = true to keep one hidden.
+#
+# Example: override Spotify
+# [player.spotify]
+# ignore = true
+#
+# Example: override VLC
+# [player.vlc]
+# match_patterns = ["vlc_media_player", "bus:vlc"]
+# app_id = "YOUR_DISCORD_APP_ID"
+# icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/VLC_Icon.svg/1200px-VLC_Icon.svg.png"
+# show_icon = true
+# allow_streaming = true
+# status_display_type = "details"
+# override_activity_type = "watching"
+
+# Regex: prefix the matcher with re: or wrap it in /.../.
+# Example: match multiple MPD bridges (mpdris2-rs variants)
+# [player.my_mpd_bridge]
+# match_patterns = ['identity:re:.*mpdris2.*', "bus:*mpdris2*"]
+# app_id = "YOUR_DISCORD_APP_ID"
+# icon = "https://www.musicpd.org/logo.png"
+# allow_streaming = true
+
+# Use Discord's registered application name instead of the player preset name.
+# [player.default]
+# app_id = "YOUR_DISCORD_APP_ID"
+# use_app_name = true
+
+# For the full list of bundled local players and web players, see config.default.toml
+# on GitHub: https://github.com/lazykern/mprisence/blob/main/config/config.default.toml
+# It ships compiled into the binary and is merged underneath your user config,
+# so you only need to write the fields you want to change.
+
+# ----------------------
+# Web Player Integration
+# ----------------------
+# Browsers (Firefox, Zen, Chrome, etc.) can publish the playing tab's URL via
+# `xesam:url`. When the URL host matches a `[web_player.*]` entry, mprisence
+# applies that site's app_id, icon, name, ignore, and activity type instead of
+# treating the source as a generic browser. Matched web_player entries always
+# allow streaming, so you do not need to also enable the browser entry;
+# adding or overriding a `[web_player.*]` entry is enough. There is no
+# `allow_streaming` on a web player: it matches because the URL is http(s),
+# so turning streaming off would just be `ignore = true`.
+#
+# URL pattern syntax (same exact/wildcard/regex forms as player match_patterns):
+#   bare        -> exact host match, with substring fallback against the host
+#   `*` / `?`   -> wildcards (e.g. "*.bandcamp.com")
+#   `re:` / `/.../` -> regex
+#
+# Specificity wins: exact > regex > wildcard > substring.
+#
+# Any web-routed http/https URL that does NOT match a `[web_player.*]` entry
+# is auto-ignored, so unknown browser audio (ads, random tabs) stays out of
+# Discord. Sources matching `[player.*]` stay native even when their metadata
+# contains an http/https URL. Opt web sources back in with a matching entry.
+#
+# Precedence: bundled default < bundled site < user default < user site.
+# User site entries inherit unset bundled fields, including match patterns,
+# so changing one field on a bundled site only takes one line.
+#
+# Most bundled web players are enabled (`ignore = false`). YouTube is ignored
+# by default, and unmatched web-routed http/https URLs are ignored.
+
+# Turn website detection off entirely. Browser media then resolves through
+# [player.*] like any other player, and every [web_player.*] rule is inert.
+# Note: [player.default] has allow_streaming = false, so you also need a
+# [player.<browser>] entry with allow_streaming = true to see anything.
+# web_player_enabled = false
+
+# Example: enable YouTube video pages (bundled with `ignore = true`).
+# Patterns are inherited from the bundled entry - one line is all you need.
+# [web_player.youtube]
+# ignore = false
+
+# Example: register a new web_player not in the bundle.
+# [web_player.last_fm]
+# match_pattern = "last.fm"
+# name = "Last.fm"
+# app_id = "YOUR_DISCORD_APP_ID"
+# icon = "https://example.com/last-fm.png"
+# ignore = false
+
+# Bundled `[web_player.*]` keys + patterns (override any by writing
+# the same key in this file):
+#   youtube_music   music.youtube.com
+#   youtube         youtube.com, youtu.be
+#   soundcloud      soundcloud.com, snd.sc
+#   apple_music     music.apple.com
+#   bandcamp        bandcamp.com
+#   tidal           tidal.com, listen.tidal.com, listen.stage.tidal.com
+#   deezer          deezer.com
+#   qobuz           qobuz.com, play.qobuz.com, open.qobuz.com
+#   amazon_music    music.amazon.* (all regions)
+#   yandex_music    music.yandex.com, music.yandex.ru
+#
+# Inspect resolved entries with `mprisence config`.
+# Check which web_player (if any) is currently matched for each player with
+# `mprisence players list --detailed`.
