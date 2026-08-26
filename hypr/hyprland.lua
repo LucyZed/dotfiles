@@ -36,11 +36,18 @@ local menu        = "hyprlauncher"
 -------------------
 
 hl.on("hyprland.start", function ()  
+  hl.exec_cmd("waybar")
   if host == desktop then
     hl.exec_cmd("phonto .config/lucydity/wallpapers/signalis-train.mp4")
   elseif host == laptop then
     hl.exec_cmd("phonto .config/lucydity/wallpapers/aura.png")
   end
+
+  hl.exec_cmd("[workspace special:magic silent] kitty --hold -e rmpc")
+  hl.exec_cmd("[workspace special:magic silent] kitty --hold -e tty-clock -c -C4 -s")
+  hl.exec_cmd("[workspace special:magic silent] kitty --hold -e fastfetch")
+
+  hl.exec_cmd("equibop")
 end)
 
 
@@ -163,21 +170,18 @@ hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "
 --     rounding    = 0,
 -- })
 
--- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
     dwindle = {
         preserve_split = true,
     },
 })
 
--- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 hl.config({
     master = {
         new_status = "master",
     },
 })
 
--- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
 hl.config({
     scrolling = {
         fullscreen_on_one_column = true,
@@ -278,13 +282,7 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
--- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
--- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
-
--- Example window rules that are useful
-
 local suppressMaximizeRule = hl.window_rule({
-    -- Ignore maximize requests from all apps. You'll probably like this.
     name  = "suppress-maximize-events",
     match = { class = ".*" },
 
@@ -293,7 +291,6 @@ local suppressMaximizeRule = hl.window_rule({
 -- suppressMaximizeRule:set_enabled(false)
 
 hl.window_rule({
-    -- Fix some dragging issues with XWayland
     name  = "fix-xwayland-drags",
     match = {
         class      = "^$",
@@ -315,11 +312,15 @@ hl.window_rule({
 -- })
 -- overlayLayerRule:set_enabled(false)
 
--- Hyprland-run windowrule
 hl.window_rule({
     name  = "move-hyprland-run",
     match = { class = "hyprland-run" },
 
     move  = "20 monitor_h-120",
     float = true,
+})
+
+hl.window_rule({
+    match = { class = "^(equibop)$" },
+    workspace = "2 silent"
 })
