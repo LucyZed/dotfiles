@@ -23,13 +23,13 @@
 
     # The width of the window, excluding the frame.
     # dynamic width from 0 to 300
-    # width = (0, 300)
+    width = (0, 500)
     # constant width of 300
-    width = 300
+    # width = 300
 
     # The height of a single notification, excluding the frame.
     # dynamic height from 0 to 300
-    height = (0, 300)
+    height = (0, 200)
     # constant height of 300
     # height = 300
     # NOTE: Dunst from version 1.11 and older don't support dynamic height
@@ -41,7 +41,7 @@
     # Offset from the origin
     # NOTE: Dunst from version 1.11 and older use this alternative notation
     # offset = 10x50
-    offset = (10, 50)
+    offset = (0, 0)
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -111,7 +111,7 @@
     frame_width = 3
 
     # Defines color of the frame around the notification window.
-    frame_color = "#aaaaaa"
+    frame_color = "#550000"
 
     # Size of gap to display between notifications - requires a compositor.
     # If value is greater than 0, separator_height will be ignored and a border
@@ -244,7 +244,7 @@
     min_icon_size = 32
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 128
+    max_icon_size = 48
 
     # Paths to default icons (only necessary when not using recursive icon lookup)
     icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
@@ -360,19 +360,19 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#222222"
+    background = "#000000"
     foreground = "#888888"
     timeout = 10
     # Icon for notifications with low urgency
-    default_icon = dialog-information
+    default_icon = ~/.config/lucydity/images/signalis.webp
 
 [urgency_normal]
-    background = "#285577"
-    foreground = "#ffffff"
+    background = "#000000"
+    foreground = "#aaaaaa"
     timeout = 10
     override_pause_level = 30
     # Icon for notifications with normal urgency
-    default_icon = dialog-information
+    default_icon = ~/.config/lucydity/images/signalis.webp
 
 [urgency_critical]
     background = "#900000"

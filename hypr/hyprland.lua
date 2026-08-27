@@ -35,8 +35,7 @@ local menu        = "hyprlauncher"
 ---- AUTOSTART ----
 -------------------
 
-hl.on("hyprland.start", function ()  
-  hl.exec_cmd("waybar")
+hl.on("hyprland.start", function ()
   if host == desktop then
     hl.exec_cmd("phonto .config/lucydity/wallpapers/signalis-train.mp4")
   elseif host == laptop then
